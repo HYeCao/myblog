@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.CategoryMapper">
+    <select id="listAllCategory" resultType="com.example.demo.dto.Category">
+		select * from category_info
+	</select>
+
+	<select id="listCategoryByID" resultType="com.example.demo.dto.Category">
+		select * from category_info where categoryId = #{id}
+	</select>
+
+	<select id="getOneById" resultType="com.example.demo.dto.Category">
+		select * from category_info where categoryId = #{id}
+	</select>
+
+	<insert id="addCategory" parameterType="com.example.demo.dto.Category" useGeneratedKeys="true">
+		insert into category_info
+		(
+			`name`,
+			`createBy`
+		)
+		values
+		(
+			#{name},
+			#{createBy}
+		)
+	</insert>
+
+	<delete id="deleteCategoryById">
+		delete from category_info where id = #{id}
+	</delete>
+	<update id="updateCategory" parameterType="com.example.demo.dto.Category">
+		update category_info
+		<set>
+			<if test="name != null and name != ''">`name` = #{name},</if>
+			`number` = #{number},
+			<if test="createBy != null ">`createBy` = #{createBy},</if>
+			<if test="modifiedBy != null ">`modifiedBy` = #{modifiedBy},</if>
+		</set>
+		<where>
+			categoryId = #{categoryId}
+		</where>
+	</update>
+</mapper>

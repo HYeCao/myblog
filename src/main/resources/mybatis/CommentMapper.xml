@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.CommentMapper">
+<insert id="addComment" parameterType="com.example.demo.dto.Comment" useGeneratedKeys="true" keyProperty="ID">
+    insert into comment_info
+    (
+    `UserName`,
+    `Comment`,
+    `Blog_ID`,
+    `Email`,
+    `Date`
+    )
+    values
+    (
+    #{UserName},
+    #{Comment},
+    #{Blog_ID},
+    #{Email},
+    #{Date}
+    )
+</insert>
+
+    <select id="listAllArticleCommentById" resultType="com.example.demo.dto.Comment">
+		select * from comment_info where Blog_ID=#{id}
+	</select>
+
+    <select id="getALLComment" resultType="com.example.demo.dto.Comment">
+		select * from comment_info
+	</select>
+
+    <delete id="deleteCommentById">
+		delete from comment_info where ID = #{id}
+	</delete>
+
+
+    <delete id="deleteArticleCommentById">
+		delete from comment_info where ID = #{id}
+	</delete>
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.BlogMapper">
+    <select id="getBlogByID" resultType="com.example.demo.dto.Blog">
+		select * from blog_info where ID=#{ID}
+	</select>
+	<select id="getALLBlog" resultType="com.example.demo.dto.Blog">
+		select * from blog_info
+	</select>
+
+	<select id="getBlogListByCategoryId" resultType="com.example.demo.dto.Blog">
+		select * from blog_info where categoryId=#{categoryId}
+	</select>
+
+
+	<delete id="deleteBlogById">
+		delete from blog_info where ID = #{id}
+	</delete>
+	<update id="updateBlog" parameterType="com.example.demo.dto.Blog">
+		update blog_info
+		<set>
+			<if test="date != null ">`date` = #{date},</if>
+			<if test="UserName != null and UserName != ''">`UserName` = #{UserName},</if>
+			<if test="Topic != null and Topic != ''">`Topic` = #{Topic},</if>
+			<if test="Tag != null and Tag != ''">`Tag` = #{Tag},</if>
+			<if test="Article != null and Article != ''">`Article` = #{Article},</if>
+			<if test="Views != null and Views != ''">`Views` = #{Views},</if>
+			<if test="Title != null and Title != ''">`Title` = #{Title},</if>
+			<if test="PictureUrl != null and PictureUrl != ''">`PictureUrl` = #{PictureUrl},</if>
+			<if test="Top != null and Top != ''">`Top` = #{Top},</if>
+			<if test="categoryId != null and categoryId != ''">`categoryId` = #{categoryId},</if>
+			<if test="categoryName != null and categoryName != ''">`categoryName` = #{categoryName},</if>
+		</set>
+		<where>
+			ID = #{ID}
+		</where>
+	</update>
+
+	<insert id="addBlog" parameterType="com.example.demo.dto.Blog" useGeneratedKeys="true">
+    insert into blog_info
+    (
+    `Date`,
+    `UserName`,
+    `Topic`,
+    `Tag`,
+    `Article`,
+    `Views`,
+    `Title`,
+    `PictureUrl`,
+    `Top`,
+    `categoryId`,
+    `categoryName`
+    )
+    values
+    (
+    #{date},
+    #{UserName},
+    #{Topic},
+    #{Tag},
+    #{Article},
+    #{Views},
+    #{Title},
+    #{PictureUrl},
+    #{Top},
+    #{categoryId},
+    #{categoryName}
+    )
+</insert>
+</mapper>
